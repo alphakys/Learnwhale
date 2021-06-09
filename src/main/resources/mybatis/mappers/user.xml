@@ -4,27 +4,62 @@
 <mapper namespace="user">
 	<!-- 회원가입 -->
 	<insert id="insert" parameterType="UserVo">
-	<![CDATA[
-		insert into users
-			values(seq_user_no.nextval, 
-					#{id}, 
-					#{password}, 
-					#{name},
-					#{email}, 
-					#{phoneNum},
-					#{proFile,jdbcType=VARCHAR} )	
-		]]>
+		
+		<choose>
+		
+			<when test="joinPath == 'kakao' ">
+				<![CDATA[
+				insert into users(no, id, name, email, phone_num, pro_file, join_path)
+					values(seq_user_no.nextval, 
+							#{id},  
+							#{name},
+							#{email}, 
+							#{phoneNum},
+							#{proFile,jdbcType=VARCHAR},
+							#{joinPath} )	
+				]]>
+			</when>
+			
+			<otherwise>
+				<![CDATA[
+				insert into users
+					values(seq_user_no.nextval, 
+							#{id}, 
+							#{password}, 
+							#{name},
+							#{email}, 
+							#{phoneNum},
+							#{proFile,jdbcType=VARCHAR},
+							#{joinPath} )	
+				]]>
+			</otherwise>
+		
+		</choose>
+		
+		
+			
+			
 	</insert>
 
 	<!-- 로그인 -->
 	<select id="selectUser" parameterType="UserVo" resultType="UserVo">
-		<![CDATA[
-			SELECT  no,
-			        name    
-			FROM users
-			where id = #{id}
-			and password = #{password}
-		]]>
+		
+		<choose>
+			<when test="joinPath=='kakao'">
+				SELECT  no,
+			        	name    
+				FROM users
+				where id = #{id}
+			</when>
+			<otherwise>
+				SELECT  no,
+				        name    
+				FROM users
+				where id = #{id}
+				and password = #{password}
+			</otherwise>
+		</choose>
+		
 	</select>
 
 	<!-- 회원가입 아이디체크 -->

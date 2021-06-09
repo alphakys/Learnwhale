@@ -9,6 +9,16 @@ public class UserVo {
 	private String email; // 이메일
 	private String phoneNum; // 핸드폰 번호
 	private String proFile; //프로필 사진 --> 블로그 에서 씀
+	private String joinPath;
+
+	public String getJoinPath() {
+		return joinPath;
+	}
+
+
+	public void setJoinPath(String joinPath) {
+		this.joinPath = joinPath;
+	}
 
 
 	public UserVo() {
@@ -101,8 +111,11 @@ public class UserVo {
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", id=" + id + ", password=" + password + ", name=" + name + ", email=" + email
-				+ ", phoneNum=" + phoneNum + ", proFile=" + proFile + "]";
+				+ ", phoneNum=" + phoneNum + ", proFile=" + proFile + ", joinPath=" + joinPath + "]";
 	}
+
+
+
 
 	
 }

@@ -77,7 +77,7 @@
 														<!-- 아이디 사용가능 여부 메세지 -->
 													</p>
 
-													<div class="col-sm-12 joinArea">
+													<div class="col-sm-12 joinArea" id="pwDiv1">
 														<div class="form-group">
 															<div class="col-sm-12">
 																<label for="password" id="pwArea">비밀번호</label>
@@ -88,7 +88,7 @@
 													</div>
 													<!-- //joinArea -->
 													
-													<div class="col-sm-12 joinArea">
+													<div class="col-sm-12 joinArea" id="pwDiv2">
 														<div class="form-group">
 															<div class="col-sm-12" >
 																<label for="pwCheck" id="check-pwArea">비밀번호 확인</label>
@@ -145,7 +145,12 @@
 														</div>
 													</div>
 													<!-- //joinArea -->	
-												
+													
+													<c:if test="${id != null}">
+													<input type="hidden" value="kakao" name="joinPath">
+													
+													</c:if>
+													
 
 													<div  class="col-sm-12" id="btnArea">
 														<button class="btn-join btn btn-primary btn-sm"
@@ -182,7 +187,96 @@
 	<!-- footer-Area -->
 	<c:import url="/WEB-INF/views/home/include/footer.jsp"></c:import>
 	<!-- //footer-Area -->
-
+	
+	<c:choose>
+	 	<c:when test="${id != null }">
+			<script type="text/javascript">
+				$("#id-margin").val(${id});
+				$("#id-margin").attr("readOnly", "true");
+				$("#pwDiv1").hide();
+				$("#pwDiv2").hide();
+			
+				$("#joinForm").on("submit", function(){
+				
+			
+				
+				//이름체크
+				var name = $("#name").val();
+				if(name.length == 0){
+					alert("이름을 입력하세요.");
+					return false;
+				};
+				
+				//이메일 체크
+				var email = $("#email").val();
+				if(email.length == 0){
+					alert("이메일을 입력하세요.")
+					return false;
+				};
+				
+				//전화번호 체크
+				var phone = $("phoneNo").val();
+				if(phone.length == 0){
+					alert("전화번호를 입력하세요")
+					return false;
+				}
+				
+				return ture;
+			});		
+			</script>
+		</c:when>
+		<c:otherwise>
+			<script type="text/javascript">
+				$("#pwDiv1").show();
+				$("#pwDiv2").show();
+			
+			$("#joinForm").on("submit", function(){
+				
+				//아이디 체크
+				var uid = $("#id-margin").val();
+				if(uid.length == 0){
+					alert("아이디를 입력하세요");
+					return false;
+				};
+				
+				//패스워드 체크
+				var pw = $("#password").val();
+				if(pw.length == 0){
+					alert("패스워드를 입력하세요.");
+					return false;
+				};
+				
+				//이름체크
+				var name = $("#name").val();
+				if(name.length == 0){
+					alert("이름을 입력하세요.");
+					return false;
+				};
+				
+				//이메일 체크
+				var email = $("#email").val();
+				if(email.length == 0){
+					alert("이메일을 입력하세요.")
+					return false;
+				};
+				
+				//전화번호 체크
+				var phone = $("phoneNo").val();
+				if(phone.length == 0){
+					alert("전화번호를 입력하세요")
+					return false;
+				}
+				
+				return ture;
+			});		
+			</script>
+		</c:otherwise>
+	
+	
+	</c:choose>
+	
+	
+	
 </body>
 <script type="text/javascript">
 	$("#btnCheck").on("click", function(){

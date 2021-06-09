@@ -27,7 +27,7 @@
 							<a href="${pageContext.request.contextPath}/user/loginForm">로그인</a>
 						</button>
 						<button id="btnJoin" type="button" class="btn btn-default btn-xs">
-							<a href="${pageContext.request.contextPath}/user/joinForm">회원가입</a>
+							<a href="${pageContext.request.contextPath}/user/joinPath">회원가입</a>
 						</button>
 					</div>
 				</c:when>

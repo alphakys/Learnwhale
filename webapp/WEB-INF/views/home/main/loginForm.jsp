@@ -76,7 +76,10 @@
 												<div class="col-sm-12">
 													<button type="button" class="btn btn-defalut Btn_j"><a href="${pageContext.request.contextPath}/user/joinForm" style="font-color: #75ACDC;">회원가입</a></button>
 												</div>
-
+												
+												<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=4aaff7ffacda146806735614f9f809de&redirect_uri=http://localhost:8088/learnwhale/api/kakao/login">
+													<img src="${pageContext.request.contextPath }/assets/image/kakao.png" style="width:200px;">
+												</a>
 												<!-- //joinArea -->
 											</form>
 											<!-- //form -->

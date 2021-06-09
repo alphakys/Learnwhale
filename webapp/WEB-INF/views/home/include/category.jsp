@@ -357,6 +357,8 @@
 			$(".child-folder a").on("click", function(e){
 				e.preventDefault();
 				
+				$("#creatbtn").show();
+				
 				$("#title h1").text($(this).text());
 				
 				$(".child-folder a").css(

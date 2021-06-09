@@ -3,8 +3,8 @@ package com.javaex.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,29 +25,56 @@ public class HuserController {
 	//joinOk
 	@RequestMapping(value = "/joinOk", method = {RequestMethod.GET, RequestMethod.POST})
 	public String joinOk() {
-		System.out.println("joinOk");
+		
 		return "home/main/joinOk";
 	}
 	
 	//회원가입 폼
+	@RequestMapping(value = "/joinPath", method = {RequestMethod.GET, RequestMethod.POST})
+	public String joinPath() {
+		
+		return "joinPath";
+	}
+	
 	@RequestMapping(value = "/joinForm", method = {RequestMethod.GET, RequestMethod.POST})
 	public String joinForm() {
-		System.out.println("user()-joinForm");
+		
 		return "home/main/joinForm";
 	}
 	
 	// 회원가입
 	@RequestMapping(value = "/join", method = { RequestMethod.GET, RequestMethod.POST })
 	public String join(@ModelAttribute UserVo userVo,
-						@RequestParam(value="pro", required = false, defaultValue = "") MultipartFile file) {
-		System.out.println("[user()-join]");
+					   @RequestParam(value="pro", required = false, defaultValue = "") MultipartFile file,
+					   HttpSession session) {
+		
+		
+		System.out.println(userVo);
+		int result = userService.join(userVo, file);
+		
+		if(result ==1 && "kakao".equals(userVo.getJoinPath())) {
+			
+			UserVo authUser = userService.login(userVo);
+			session.setAttribute("authUser", authUser);
+			
+			return "redirect:/myclass/list";
+		}
+
+		return "home/main/joinOk";
+	}
+
+	
+	@RequestMapping(value = "/kakaoJoin", method = { RequestMethod.GET, RequestMethod.POST })
+	public String kakaoJoin(@ModelAttribute UserVo userVo,
+							@RequestParam(value="pro", required = false, defaultValue = "") MultipartFile file) {
+		
 		
 		System.out.println(userVo);
 		userService.join(userVo, file);
 
 		return "home/main/joinOk";
 	}
-
+	
 	
 	//로그인폼
 	@RequestMapping(value = "/loginForm", method = {RequestMethod.GET, RequestMethod.POST})
